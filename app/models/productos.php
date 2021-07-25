@@ -200,4 +200,13 @@ class Productos extends Validator
         $params = null;
         return Database::getRows($sql, $params);
     }
+
+    public function productosVendidos()
+    {
+        $sql = 'SELECT p.nombre_producto, SUM(d.cantidad_producto*d.precio_producto) total
+        FROM detalle_pedido d INNER JOIN productos p USING(id_producto)
+        GROUP BY p.nombre_producto ORDER BY p.nombre_producto DESC LIMIT 5';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
 }

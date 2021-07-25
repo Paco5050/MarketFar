@@ -257,6 +257,7 @@ function fillSelect(endpoint, select, selected) {
 function barGraph(canvas, xAxis, yAxis, legend, title) {
     // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
     const context = document.getElementById(canvas).getContext('2d');
+
     // Se crea una instancia para generar la gráfica con los datos recibidos.
     const chart = new Chart(context, {
         type: 'bar',
@@ -265,6 +266,7 @@ function barGraph(canvas, xAxis, yAxis, legend, title) {
             datasets: [{
                 label: legend,
                 data: yAxis,
+                backgroundColor: '#808080',
                 borderColor: '#000000',
                 borderWidth: 1
             }]
@@ -327,9 +329,142 @@ function pieGraph(canvas, legends, values, title) {
         },
         options: {
             responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Porcentaje de productos por categoria'
+                }
+            }
+        }
+    });
+}
+
+function polarGraph(canvas, legends, values) {
+    // Se declara un arreglo para guardar códigos de colores en formato hexadecimal.
+    let colors = [];
+    // Se declara e inicializa una variable para sumar los valores a graficar.
+    let total = 0;
+    // Se generan códigos hexadecimales de 6 cifras de acuerdo con el número de datos a mostrar y se van acumulando los valores.
+    for (i = 0; i < values.length; i++) {
+        colors.push('#' + (Math.random().toString(16)).substring(2, 8));
+        total += values[i];
+    }
+    // Se declara un arreglo para guardar los porcentajes de cada cantidad.
+    let percentages = [];
+    // Se calcula el porcetaje que corresponde a cada valor.
+    
+    // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
+    const context = document.getElementById(canvas).getContext('2d');
+    // Se crea una instancia para generar la gráfica con los datos recibidos.
+    const chart = new Chart(context, {
+        type: 'polarArea',
+        data: {
+            labels: legends,
+            datasets: [{
+                data: values,
+                backgroundColor: colors
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Valoraciones en estrellas'
+                }
+            }
+        }
+    });
+}
+
+function panelGraph(canvas, legends, values) {
+    // Se declara un arreglo para guardar códigos de colores en formato hexadecimal.
+    let colors = [];
+    // Se declara e inicializa una variable para sumar los valores a graficar.
+    let total = 0;
+    // Se generan códigos hexadecimales de 6 cifras de acuerdo con el número de datos a mostrar y se van acumulando los valores.
+    for (i = 0; i < values.length; i++) {
+        colors.push('#' + (Math.random().toString(16)).substring(2, 8));
+        total += values[i];
+    }
+    // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
+    const context = document.getElementById(canvas).getContext('2d');
+    // Se crea una instancia para generar la gráfica con los datos recibidos.
+    const chart = new Chart(context, {
+        type: 'bar',
+        data: {
+            labels: legends,
+            datasets: [{
+                label: 'Ganancia en $',
+                data: values,
+                backgroundColor: '#283747',
+                borderColor: '#000000',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                display: false
+            },
             title: {
                 display: true,
-                text: title
+                text: 'popo'
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        precision: 0
+                    }
+                }]
+            }
+        }
+    });
+}
+
+function polarGraph2(canvas, legends, values) {
+    // Se declara un arreglo para guardar códigos de colores en formato hexadecimal.
+    let colors = [];
+    // Se declara e inicializa una variable para sumar los valores a graficar.
+    let total = 0;
+    // Se generan códigos hexadecimales de 6 cifras de acuerdo con el número de datos a mostrar y se van acumulando los valores.
+    for (i = 0; i < values.length; i++) {
+        colors.push('#' + (Math.random().toString(16)).substring(2, 8));
+        total += values[i];
+    }
+    // Se declara un arreglo para guardar los porcentajes de cada cantidad.
+    let percentages = [];
+    // Se calcula el porcetaje que corresponde a cada valor.
+    
+    // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
+    const context = document.getElementById(canvas).getContext('2d');
+    // Se crea una instancia para generar la gráfica con los datos recibidos.
+    const chart = new Chart(context, {
+        type: 'polarArea',
+        data: {
+            labels: legends,
+            datasets: [{
+                data: values,
+                backgroundColor: colors
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Valoraciones en estrellas'
+                }
             }
         }
     });

@@ -143,13 +143,13 @@ class Dashboard_Page
                                 </div>
                                 <div class="col s12 m6 l6">
                                     <h5 class="white-text">Enlaces</h5>
-                                    <a class="white-text" href="http://localhost/coffeeshop/views/public/" target="_blank"><i class="material-icons left">store</i>Sitio público</a>
+                                    <a class="white-text" href="http://localhost/marketfar/views/public/" target="_blank"><i class="material-icons left">store</i>Sitio público</a>
                                 </div>
                             </div>
                         </div>
                         <div class="footer-copyright">
                             <div class="container">
-                                <span>© Coffeeshop, todos los derechos reservados.</span>
+                                <span>© Marketfar, todos los derechos reservados.</span>
                                 <span class="white-text right">Diseñado con <a class="red-text text-accent-1" href="http://materializecss.com/" target="_blank"><b>Materialize</b></a></span>
                             </div>
                         </div>

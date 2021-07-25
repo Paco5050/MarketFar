@@ -130,13 +130,13 @@ class Usuarios extends Validator
     */
     public function checkUser($alias)
     {
-        $sql = 'SELECT id_usuario, tipo_usuario FROM usuarios WHERE alias_usuario = ?';
+        $sql = 'SELECT id_usuario, id_tipo_usuario FROM usuarios WHERE alias_usuario = ?';
         $params = array($alias);
         if ($data = Database::getRow($sql, $params)) {
             $this->id = $data['id_usuario'];
             $this->alias = $alias;
             return true;
-            if ($data['tipo_usuario'] == 1) {
+            if ($data['id_tipo_usuario'] == 1) {
     
                 header("Location: ../../views/dashboard/main.php");
     
@@ -215,7 +215,7 @@ class Usuarios extends Validator
     {
         // Se transforma la contraseña a una cadena de texto de longitud fija mediante el algoritmo por defecto.
         $hash = password_hash($this->clave, PASSWORD_DEFAULT);
-        $sql = 'INSERT INTO usuarios(nombres_usuario, apellidos_usuario, correo_usuario, alias_usuario, clave_usuario, tipo_usuario)
+        $sql = 'INSERT INTO usuarios(nombres_usuario, apellidos_usuario, correo_usuario, alias_usuario, clave_usuario, id_tipo_usuario)
                 VALUES(?, ?, ?, ?, ?, ?)';
         $params = array($this->nombres, $this->apellidos, $this->correo, $this->alias, $hash, $this->tipo2);
         return Database::executeRow($sql, $params);
@@ -223,9 +223,9 @@ class Usuarios extends Validator
 
     public function readAll()
     {
-        $sql = 'SELECT u.id_usuario, u.nombres_usuario, u.apellidos_usuario, u.correo_usuario, u.alias_usuario, t.tipo_usuario
+        $sql = 'SELECT u.id_usuario, u.nombres_usuario, u.apellidos_usuario, u.correo_usuario, u.alias_usuario, t.tipo_usuario, t.id_tipo_usuario
                 FROM usuarios u, tipo_usuario t
-                WHERE  u.tipo_usuario=t.id_tipo_usuario 
+                WHERE u.id_tipo_usuario=t.id_tipo_usuario 
                 ORDER BY apellidos_usuario';
         $params = null;
         return Database::getRows($sql, $params);
@@ -235,7 +235,7 @@ class Usuarios extends Validator
     {
         $sql = 'SELECT u.id_usuario, u.nombres_usuario, u.apellidos_usuario, u.correo_usuario, u.alias_usuario, t.tipo_usuario
                 FROM usuarios u, tipo_usuario t
-                WHERE u.tipo_usuario = 2 AND u.tipo_usuario=t.id_tipo_usuario 
+                WHERE u.id_tipo_usuario = 2 AND u.id_tipo_usuario=t.id_tipo_usuario 
                 ORDER BY apellidos_usuario';
         $params = null;
         return Database::getRows($sql, $params);
@@ -265,5 +265,24 @@ class Usuarios extends Validator
                 WHERE id_usuario = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
+    }
+
+
+    public function readTipo()
+    {
+        $sql = 'SELECT t.id_tipo_usuario, t.tipo_usuario
+                FROM tipo_usuario t
+                ORDER BY t.tipo_usuario DESC';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    public function readProductosCategoria()
+    {
+        $sql = 'SELECT id_usuario, nombres_usuario, apellidos_usuario, correo_usuario, alias_usuario
+        FROM usuarios  INNER JOIN tipo_usuario USING(id_tipo_usuario)
+        WHERE id_tipo_usuario = ?';
+        $params = array($this->id);
+        return Database::getRows($sql, $params);
     }
 }

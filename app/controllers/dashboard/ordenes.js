@@ -19,27 +19,21 @@ function readOrderDetail() {
                 if (response.status) {
                     // Se declara e inicializa una variable para concatenar las filas de la tabla en la vista.
                     let content = '';
-                    // Se declara e inicializa una variable para calcular el importe por cada producto.
-                    let subtotal = 0;
-                    // Se declara e inicializa una variable para ir sumando cada subtotal y obtener el monto final a pagar.
-                    let total = 0;
                     // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
                     response.dataset.map(function (row) {
-                        subtotal = row.precio_producto * row.cantidad_producto;
-                        total += subtotal;
                         // Se crean y concatenan las filas de la tabla con los datos de cada registro.
                         content += `
                             <tr>
-                                <td>${row.nombre_producto}</td>
-                                <td>${row.precio_producto}</td>
-                                <td>${row.cantidad_producto}</td>
-                                <td>${subtotal.toFixed(2)}</td>
+                                <td>${row.nombres_cliente}</td>
+                                <td>${row.fecha_pedido}</td>
                                 <td>
-                                <a href="#" onclick="finishOrder(${row.id_pedido})" class="btn waves-effect green tooltipped" data-tooltip="Generar reporte"><i class="material-icons">assignment</i></a>
+                                
+                                <a href="../../app/reports/dashboard/ordenes.php?id=${row.id_pedido}" target="_blank" class="btn waves-effect amber tooltipped" data-tooltip="Reporte de productos"><i class="material-icons">assignment</i></a>
+                                <a href="#" onclick="finishOrder(${row.id_pedido})" class="btn waves-effect green tooltipped" data-tooltip="Terminar orden"><i class="material-icons">done_all</i></a>
                                 </td>
                             </tr>
                         `;
-                    });
+                    }); 
                     // Se agregan las filas al cuerpo de la tabla mediante su id para mostrar los registros.
                     document.getElementById('tbody-rows').innerHTML = content;
                     // Se inicializa el componente Tooltip asignado a los enlaces para que funcionen las sugerencias textuales.

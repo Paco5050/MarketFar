@@ -84,9 +84,8 @@ class Ordenes extends Validator
  
     public function readAll()
     {
-        $sql = 'SELECT id_detalle, nombre_producto, cantidad_producto, d.precio_producto, p.estado_pedido, p.id_pedido
-        FROM detalle_pedido d, pedidos p, productos s
-        WHERE d.id_pedido=p.id_pedido AND d.id_producto=s.id_producto AND p.estado_pedido=1;';
+        $sql = 'SELECT c.nombres_cliente, fecha_pedido, p.id_pedido
+        FROM pedidos p, clientes c WHERE p.id_cliente = c.id_cliente AND p.id_cliente = c.id_cliente AND  estado_pedido =1';
         $params = null;
         return Database::getRows($sql, $params);
     }
@@ -102,13 +101,28 @@ class Ordenes extends Validator
         return Database::executeRow($sql, $params);
     }
 
-    public function searchRows($value)
+    public function readOne()
     {
-        $sql = 'SELECT id_cliente, nombres_cliente, apellidos_cliente, correo_cliente, dui_cliente, telefono_cliente, nacimiento_cliente, direccion_cliente
-                FROM clientes
-                WHERE apellidos_cliente ILIKE ? OR nombres_cliente ILIKE ? OR correo_cliente ILIKE ?
-                ORDER BY apellidos_cliente';
-        $params = array("%$value%", "%$value%", "%$value%");
+        $sql = 'SELECT id_detalle, s.nombre_producto, d.cantidad_producto, d.precio_producto, c.nombres_cliente, d.id_pedido
+        FROM detalle_pedido d, pedidos p, clientes c, productos s WHERE d.id_pedido=p.id_pedido AND p.id_cliente = c.id_cliente AND d.id_producto=s.id_producto AND p.id_pedido=?';
+        $params = array($this->id);
+        return Database::getRow($sql, $params);
+    }
+
+    public function readOrdenes()
+    {
+        $sql = 'SELECT id_detalle, s.nombre_producto, d.cantidad_producto, d.precio_producto, c.nombres_cliente, d.id_pedido
+        FROM detalle_pedido d, pedidos p, clientes c, productos s WHERE d.id_pedido=p.id_pedido AND p.id_cliente = c.id_cliente AND d.id_producto=s.id_producto AND p.id_pedido=?
+                ORDER BY s.nombre_producto';
+        $params = array($this->id);
         return Database::getRows($sql, $params);
+    }
+
+    public function total()
+    {
+        $sql = 'SELECT ROUND(SUM((d.cantidad_producto*d.precio_producto)*1.13),2) AS total
+        FROM detalle_pedido d WHERE d.id_pedido=?';
+        $params = array($this->id);
+        return Database::getRow($sql, $params);
     }
 }

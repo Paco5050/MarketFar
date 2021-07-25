@@ -284,4 +284,21 @@ class Clientes extends Validator
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
+
+    public function readBest()
+    {
+        $sql = 'SELECT c.nombres_cliente, COUNT(c.nombres_cliente) AS total
+        FROM pedidos p, clientes c WHERE p.id_cliente=c.id_cliente GROUP BY c.nombres_cliente ORDER BY c.nombres_cliente DESC LIMIT 1';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    public function readChart()
+    {
+        $sql = 'SELECT c.nombres_cliente, COUNT(c.nombres_cliente) maximo
+        FROM pedidos p INNER JOIN clientes c USING(id_cliente)
+        GROUP BY  c.nombres_cliente ORDER BY  c.nombres_cliente DESC LIMIT 5';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
 }

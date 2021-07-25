@@ -18,7 +18,7 @@ class Report extends FPDF
     *
     *   Retorno: ninguno.
     */
-    public function startReport($title)
+    public function startReport2($title)
     {
         // Se establece la zona horaria a utilizar durante la ejecución del reporte.
         ini_set('date.timezone', 'America/El_Salvador');
@@ -33,7 +33,7 @@ class Report extends FPDF
             // Se establecen los margenes del documento (izquierdo, superior y derecho).
             $this->setMargins(15, 15, 15);
             // Se añade una nueva página al documento (orientación vertical y formato carta) y se llama al método Header()
-            $this->AddPage('p', 'letter');
+            $this->AddPage('l', 'letter');
             // Se define un alias para el número total de páginas que se muestra en el pie del documento.
             $this->AliasNbPages();
         } else {
@@ -52,11 +52,11 @@ class Report extends FPDF
         // Se ubica el título.
         $this->Cell(20);
         $this->SetFont('Arial', 'B', 15);
-        $this->Cell(166, 10, utf8_decode($this->title), 0, 1, 'C');
+        $this->Cell(210, 10, utf8_decode($this->title), 0, 1, 'C');
         // Se ubica la fecha y hora del servidor.
         $this->Cell(20);
         $this->SetFont('Arial', '', 10);
-        $this->Cell(166, 10, 'Fecha/Hora: '.date('d-m-Y H:i:s'), 0, 1, 'C');
+        $this->Cell(210, 10, 'Fecha/Hora: '.date('d-m-Y H:i:s'), 0, 1, 'C');
         // Se agrega un salto de línea para mostrar el contenido principal del documento.
         $this->Ln(10);
     }
@@ -73,6 +73,8 @@ class Report extends FPDF
         $this->SetFont('Arial', 'I', 8);
         // Se imprime una celda con el número de página.
         $this->Cell(0, 10, utf8_decode('Página ').$this->PageNo().'/{nb}', 0, 0, 'C');
+        
+        $this->Image('../../../resources/img/number1.jpg', 88, 80, 100);
     }
 }
 ?>

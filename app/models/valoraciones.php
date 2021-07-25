@@ -89,4 +89,12 @@ class Valoracion extends Validator
         return Database::getRow($sql, $params);
     }
     
+    public function cantidadValoraciones()
+    {
+        $sql = 'SELECT nombre_producto, ROUND(AVG(estrellas),0) estrellas
+        FROM valoraciones INNER JOIN productos USING(id_producto)
+        GROUP BY nombre_producto ORDER BY estrellas DESC LIMIT 5';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
 }

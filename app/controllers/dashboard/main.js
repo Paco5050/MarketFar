@@ -1,5 +1,7 @@
 // Constante para establecer la ruta y parámetros de comunicación con la API.
 const API_PRODUCTOS = '../../app/api/dashboard/productos.php?action=';
+const API_VALORACIONES = '../../app/api/dashboard/valoraciones.php?action=';
+const API_CLIENTE = '../../app/api/dashboard/clientes.php?action=';
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
@@ -22,6 +24,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Se llaman a la funciones que muestran las gráficas en la página web.
     graficaBarrasCategorias();
     graficaPastelCategorias();
+    graficaPolar(); 
+    graficaPanel();
+    graficaPolar2();
 });
 
 // Función para mostrar la cantidad de productos por categoría en una gráfica de barras.
@@ -81,6 +86,108 @@ function graficaPastelCategorias() {
                     pieGraph('chart2', categorias, cantidad, 'Porcentaje de productos por categoría');
                 } else {
                     document.getElementById('chart2').remove();
+                    console.log(response.exception);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+// Función para mostrar el porcentaje de valoraciones por producto en una gráfica polar.
+function graficaPolar() {
+    fetch(API_VALORACIONES + 'cantidadPolar', {
+        method: 'get'
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
+                if (response.status) {  
+                    // Se declaran los arreglos para guardar los datos por gráficar.
+                    let categorias = [];
+                    let cantidad = [];
+                    // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+                    response.dataset.map(function (row) {
+                        // Se asignan los datos a los arreglos.
+                        categorias.push(row.nombre_producto+" estrellas");
+                        cantidad.push(row.estrellas);
+                    });
+                    // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
+                    polarGraph('chart3', categorias, cantidad, 'Porcentaje de productos por categoría');
+                } else {
+                    document.getElementById('chart3').remove();
+                    console.log(response.exception);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+// Función para mostrar el porcentaje de productos por categoría en una gráfica de pastel.
+function graficaPanel() {
+    fetch(API_PRODUCTOS + 'cantidadPanel', {
+        method: 'get'
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
+                if (response.status) {
+                    // Se declaran los arreglos para guardar los datos por gráficar.
+                    let categorias = [];
+                    let cantidad = [];
+                    // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+                    response.dataset.map(function (row) {
+                        // Se asignan los datos a los arreglos.
+                        categorias.push(row.nombre_producto);
+                        cantidad.push(row.total);
+                    });
+                    // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
+                    panelGraph('chart4', categorias, cantidad);
+                } else {
+                    document.getElementById('chart4').remove();
+                    console.log(response.exception);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+// Función para mostrar el porcentaje de productos por categoría en una gráfica de pastel.
+function graficaPolar2() {
+    fetch(API_CLIENTE + 'cantidadPanel', {
+        method: 'get'
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
+                if (response.status) {
+                    // Se declaran los arreglos para guardar los datos por gráficar.
+                    let categorias = [];
+                    let cantidad = [];
+                    // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+                    response.dataset.map(function (row) {
+                        // Se asignan los datos a los arreglos.
+                        categorias.push(row.nombres_cliente);
+                        cantidad.push(row.maximo);
+                    });
+                    // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
+                    polarGraph2('chart5', categorias, cantidad);
+                } else {
+                    document.getElementById('chart5').remove();
                     console.log(response.exception);
                 }
             });
