@@ -11,8 +11,8 @@ class Usuarios extends Validator
     private $correo = null;
     private $alias = null;
     private $clave = null;
-    private $tipo = 1;
-    private $tipo2 = 2;
+    private $tipo = 2;
+    private $tipo2 = 1;
 
     /*
     *   Métodos para validar y asignar valores de los atributos.
@@ -205,7 +205,7 @@ class Usuarios extends Validator
     {
         // Se transforma la contraseña a una cadena de texto de longitud fija mediante el algoritmo por defecto.
         $hash = password_hash($this->clave, PASSWORD_DEFAULT);
-        $sql = 'INSERT INTO usuarios(nombres_usuario, apellidos_usuario, correo_usuario, alias_usuario, clave_usuario)
+        $sql = 'INSERT INTO usuarios(nombres_usuario, apellidos_usuario, correo_usuario, alias_usuario, clave_usuario, id_tipo_usuario)
                 VALUES(?, ?, ?, ?, ?, ?)';
         $params = array($this->nombres, $this->apellidos, $this->correo, $this->alias, $hash, $this->tipo);
         return Database::executeRow($sql, $params);
