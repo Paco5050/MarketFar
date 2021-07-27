@@ -117,7 +117,7 @@ function graficaPolar() {
                         cantidad.push(row.estrellas);
                     });
                     // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
-                    polarGraph('chart3', categorias, cantidad, 'Porcentaje de productos por categoría');
+                    polarGraph('chart3', categorias, cantidad, 'Cantidad de estrellas por producto');
                 } else {
                     document.getElementById('chart3').remove();
                     console.log(response.exception);
@@ -185,7 +185,7 @@ function graficaPolar2() {
                         cantidad.push(row.maximo);
                     });
                     // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
-                    polarGraph2('chart5', categorias, cantidad);
+                    polarGraph2('chart5', categorias, cantidad, 'Cantidad de compras por cliente');
                 } else {
                     document.getElementById('chart5').remove();
                     console.log(response.exception);
