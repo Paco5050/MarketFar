@@ -12,37 +12,30 @@ Dashboard_Page::headerTemplate('Bienvenido');
 
 <!-- Se muestran las gráficas de acuerdo con algunos datos disponibles en la base de datos -->
 <div class="row">
-    <div class="col s6 m4">
+    <div class="col s12 m6">
         <!-- Se muestra una gráfica de barra con la cantidad de productos por categoría -->
         <canvas id="chart3"></canvas>
     </div>
-    <div class="col s6 m4">
+    <div class="col s12 m6">
         <!-- Se muestra una gráfica de pastel con el porcentaje de productos por categoría -->
         <canvas id="chart2"></canvas>
     </div>
-    <div class="col s6 m4">
+    <div class="col s12 m6">
         <!-- Se muestra una gráfica de pastel con el porcentaje de valoraciones por puntaje -->
         <canvas id="chart5"></canvas>
     </div>
-</div>
-<div class="row">
-    
-    <div class="col s6 m12">
+    <div class="col s12 m6">
         <!-- Se muestra una gráfica de pastel con el porcentaje de valoraciones por puntaje -->
         <canvas id="chart4"></canvas>
     </div>
-</div>
-
-<div class="row">
-    <div class="col s6 m12">
+    <div class="col s12 m6">
         <!-- Se muestra una gráfica de pastel con el porcentaje de valoraciones por puntaje -->
         <canvas id="chart1"></canvas>
     </div>
 </div>
 
-
 <!-- Importación del archivo para generar gráficas en tiempo real. Para más información https://www.chartjs.org/ -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" src="../../resources/js/chart.js"></script>
  
 
 <?php
