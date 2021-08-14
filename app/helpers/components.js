@@ -254,19 +254,70 @@ function fillSelect(endpoint, select, selected) {
 *
 *   Retorno: ninguno.
 */
-function barGraph(canvas, xAxis, yAxis, legend, title) {
+function verticalBarGraph(canvas, xAxis, yAxis, legend, title) {
+    
+    let colors = [];
+    for (i = 0; i < xAxis.length; i++) {
+        colors.push('#' + (Math.random().toString(16)).substring(2, 8));
+    }
     // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
     const context = document.getElementById(canvas).getContext('2d');
 
     // Se crea una instancia para generar la gráfica con los datos recibidos.
     const chart = new Chart(context, {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: xAxis,
             datasets: [{
                 label: legend,
                 data: yAxis,
-                backgroundColor: '#808080',
+                backgroundColor: colors,
+                borderColor: '#000000',
+                borderWidth: 1,
+                fill: false
+            }]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                display: false
+            },
+            title: {
+                display: true,
+                text: title
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        precision: 0
+                    }
+                }]
+            }
+        }
+    });
+}
+
+function horizontalBarGraph(canvas, xAxis, yAxis, legend, title) {
+    
+
+    let colors = [];
+    for (i = 0; i < xAxis.length; i++) {
+        colors.push('#' + (Math.random().toString(16)).substring(2, 8));
+    }
+    
+    // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
+    const context = document.getElementById(canvas).getContext('2d');
+
+    // Se crea una instancia para generar la gráfica con los datos recibidos.
+    const chart = new Chart(context, {
+        type: 'horizontalBar',
+        data: {
+            labels: xAxis,
+            datasets: [{
+                label: legend,
+                data: yAxis,
+                backgroundColor: colors,
                 borderColor: '#000000',
                 borderWidth: 1
             }]
@@ -281,7 +332,7 @@ function barGraph(canvas, xAxis, yAxis, legend, title) {
                 text: title
             },
             scales: {
-                yAxes: [{
+                xAxes: [{
                     ticks: {
                         beginAtZero: true,
                         precision: 0
@@ -360,7 +411,7 @@ function polarGraph(canvas, legends, values) {
     const context = document.getElementById(canvas).getContext('2d');
     // Se crea una instancia para generar la gráfica con los datos recibidos.
     const chart = new Chart(context, {
-        type: 'polarArea',
+        type: 'doughnut',
         data: {
             labels: legends,
             datasets: [{

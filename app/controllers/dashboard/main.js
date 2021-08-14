@@ -49,7 +49,7 @@ function graficaBarrasCategorias() {
                         cantidad.push(row.cantidad);
                     });
                     // Se llama a la función que genera y muestra una gráfica de barras. Se encuentra en el archivo components.js
-                    barGraph('chart1', categorias, cantidad, 'Cantidad de productos', 'Cantidad de productos por categoría');
+                    verticalBarGraph('chart1', categorias, cantidad, 'Cantidad de productos', 'Cantidad de productos por categoría');
                 } else {
                     document.getElementById('chart1').remove();
                     console.log(response.exception);
@@ -151,7 +151,7 @@ function graficaPanel() {
                         cantidad.push(row.total);
                     });
                     // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
-                    panelGraph('chart4', categorias, cantidad);
+                    horizontalBarGraph('chart4', categorias, cantidad, 'Ganancia del producto', 'Gráfico de ganancia por producto');
                 } else {
                     document.getElementById('chart4').remove();
                     console.log(response.exception);
