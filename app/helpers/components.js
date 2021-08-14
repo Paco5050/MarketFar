@@ -325,7 +325,11 @@ function horizontalBarGraph(canvas, xAxis, yAxis, legend, title) {
         options: {
             responsive: true,
             legend: {
+<<<<<<< HEAD
                 display: false
+=======
+                display: true
+>>>>>>> 8d4a773de239cdce285d4a1e426c10c8f1c35557
             },
             title: {
                 display: true,
@@ -374,26 +378,25 @@ function pieGraph(canvas, legends, values, title) {
         data: {
             labels: legends,
             datasets: [{
+                label: '# of Votes',
                 data: percentages,
                 backgroundColor: colors
             }]
         },
         options: {
             responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Porcentaje de productos por categoria'
-                }
+            legend: {
+                display: true
+            },
+            title: {
+                display: true,
+                text: title
             }
         }
     });
 }
 
-function polarGraph(canvas, legends, values) {
+function polarGraph(canvas, legends, values, title) {
     // Se declara un arreglo para guardar códigos de colores en formato hexadecimal.
     let colors = [];
     // Se declara e inicializa una variable para sumar los valores a graficar.
@@ -421,20 +424,18 @@ function polarGraph(canvas, legends, values) {
         },
         options: {
             responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Valoraciones en estrellas'
-                }
+            legend: {
+                display: false
+            },
+            title: {
+                display: true,
+                text: title
             }
         }
     });
 }
 
-function panelGraph(canvas, legends, values) {
+function panelGraph(canvas, legends, values, title) {
     // Se declara un arreglo para guardar códigos de colores en formato hexadecimal.
     let colors = [];
     // Se declara e inicializa una variable para sumar los valores a graficar.
@@ -452,7 +453,7 @@ function panelGraph(canvas, legends, values) {
         data: {
             labels: legends,
             datasets: [{
-                label: 'Ganancia en $',
+                label: title,
                 data: values,
                 backgroundColor: '#283747',
                 borderColor: '#000000',
@@ -466,7 +467,7 @@ function panelGraph(canvas, legends, values) {
             },
             title: {
                 display: true,
-                text: 'popo'
+                text: title
             },
             scales: {
                 yAxes: [{
@@ -480,7 +481,7 @@ function panelGraph(canvas, legends, values) {
     });
 }
 
-function polarGraph2(canvas, legends, values) {
+function polarGraph2(canvas, legends, values, title) {
     // Se declara un arreglo para guardar códigos de colores en formato hexadecimal.
     let colors = [];
     // Se declara e inicializa una variable para sumar los valores a graficar.
@@ -508,14 +509,12 @@ function polarGraph2(canvas, legends, values) {
         },
         options: {
             responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Valoraciones en estrellas'
-                }
+            legend: {
+                display: false
+            },
+            title: {
+                display: true,
+                text: title
             }
         }
     });
