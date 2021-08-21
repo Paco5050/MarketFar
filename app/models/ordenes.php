@@ -111,7 +111,7 @@ class Ordenes extends Validator
 
     public function readOrdenes()
     {
-        $sql = 'SELECT id_detalle, s.nombre_producto, d.cantidad_producto, d.precio_producto, c.nombres_cliente, d.id_pedido
+        $sql = 'SELECT id_detalle, s.nombre_producto, d.cantidad_producto, d.precio_producto, c.nombres_cliente, d.id_pedido, ROUND(d.cantidad_producto*d.precio_producto, 2) AS subtotal
         FROM detalle_pedido d, pedidos p, clientes c, productos s WHERE d.id_pedido=p.id_pedido AND p.id_cliente = c.id_cliente AND d.id_producto=s.id_producto AND p.id_pedido=?
                 ORDER BY s.nombre_producto';
         $params = array($this->id);
@@ -120,7 +120,7 @@ class Ordenes extends Validator
 
     public function total()
     {
-        $sql = 'SELECT ROUND(SUM((d.cantidad_producto*d.precio_producto)*1.13),2) AS total
+        $sql = 'SELECT ROUND(SUM(d.cantidad_producto*d.precio_producto),2) AS total, ROUND(SUM((d.cantidad_producto*d.precio_producto)*1.13),2) AS totaliva
         FROM detalle_pedido d WHERE d.id_pedido=?';
         $params = array($this->id);
         return Database::getRow($sql, $params);

@@ -325,11 +325,7 @@ function horizontalBarGraph(canvas, xAxis, yAxis, legend, title) {
         options: {
             responsive: true,
             legend: {
-<<<<<<< HEAD
                 display: false
-=======
-                display: true
->>>>>>> 8d4a773de239cdce285d4a1e426c10c8f1c35557
             },
             title: {
                 display: true,

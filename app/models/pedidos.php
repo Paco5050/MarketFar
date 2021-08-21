@@ -5,6 +5,7 @@
 class Pedidos extends Validator
 {
     // Declaración de atributos (propiedades).
+    private $id_cliente = null;
     private $id_pedido = null;
     private $id_detalle = null;
     private $cliente = null;
@@ -23,6 +24,17 @@ class Pedidos extends Validator
     /*
     *   Métodos para validar y asignar valores de los atributos.
     */
+
+    public function setId($value)
+    {
+        if ($this->validateNaturalNumber($value)) {
+            $this->id_cliente = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function setIdPedido($value)
     {
         if ($this->validateNaturalNumber($value)) {
@@ -96,6 +108,12 @@ class Pedidos extends Validator
     /*
     *   Métodos para obtener valores de los atributos.
     */
+
+    public function getId()
+    {
+        return $this->id_cliente;
+    }
+
     public function getIdPedido()
     {
         return $this->id_pedido;
@@ -142,7 +160,7 @@ class Pedidos extends Validator
     // Método para obtener los productos que se encuentran en el carrito de compras.
     public function readOrderDetail()
     {
-        $sql = 'SELECT id_detalle, nombre_producto, detalle_pedido.precio_producto, detalle_pedido.cantidad_producto
+        $sql = 'SELECT id_detalle, nombre_producto, detalle_pedido.precio_producto, detalle_pedido.cantidad_producto, id_pedido
                 FROM pedidos INNER JOIN detalle_pedido USING(id_pedido) INNER JOIN productos USING(id_producto)
                 WHERE id_pedido = ?';
         $params = array($this->id_pedido);
@@ -180,5 +198,14 @@ class Pedidos extends Validator
                 WHERE id_detalle = ? AND id_pedido = ?';
         $params = array($this->id_detalle, $_SESSION['id_pedido']);
         return Database::executeRow($sql, $params);
+    }
+
+    public function readAll2()
+    {
+        $sql = 'SELECT c.nombres_cliente, fecha_pedido, p.id_pedido
+        FROM pedidos p, clientes c WHERE p.id_cliente = c.id_cliente AND p.id_cliente = c.id_cliente AND  p.estado_pedido = 1 AND p.id_cliente=?
+        ORDER BY fecha_pedido DESC';
+         $params = array($this->id_cliente);
+        return Database::getRows($sql, $params);
     }
 }

@@ -31,7 +31,7 @@ Public_Page::headerTemplate('Carrito de compras');
     </div>
     <!-- Fila para mostrar un botón que finaliza el pedido -->
     <div class="row right-align">
-        <button type="button" onclick="finishOrder()" class="btn waves-effect blue tooltipped" data-tooltip="Finalizar pedido"><i class="material-icons">payment</i></button>
+        <button type="button" onclick="finishOrder()"  class="btn waves-effect blue tooltipped" data-tooltip="Finalizar pedido"><i class="material-icons">payment</i></button>
     </div>
     <!-- Fila para mostrar un enlace con la dirección de la página web principal para seguir comprando -->
     <div class="row right-align">

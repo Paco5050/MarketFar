@@ -90,6 +90,21 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Ocurrió un problema al finalizar el pedido';
                 }
                 break;
+            case 'readAll2':
+                if ($pedido->setId($_SESSION['id_cliente'])) {
+                    if ($result['dataset'] = $pedido->readAll2()) {
+                        $result['status'] = 1;
+                    } else {
+                        if (Database::getException()) {
+                            $result['exception'] = Database::getException();
+                        } else {
+                            $result['exception'] = 'No hay ordenes registrados';
+                        }
+                    }
+                } else {
+                    $result['exception'] = 'Orden incorrecto';
+                }
+                break;
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }

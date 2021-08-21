@@ -10,12 +10,13 @@ document.addEventListener('DOMContentLoaded', function () {
     readOneProducto(ID);
 });
 
-// Función para obtener y mostrar los datos del producto seleccionado.
+
+// Función para obtener y mostrar los productos de acuerdo a la categoría seleccionada.
 function readOneProducto(id) {
     // Se define un objeto con los datos del registro seleccionado.
     const data = new FormData();
     data.append('id_productos', id);
-    let content = '';
+
     fetch(API_COMENTARIO + 'readComment', {
         method: 'post',
         body: data
@@ -25,15 +26,20 @@ function readOneProducto(id) {
             request.json().then(function (response) {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
-                    content +=`
+                    let content = '';
+                    // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+                    response.dataset.map(function (row) {
+                        // Se crean y concatenan las tarjetas con los datos de cada producto.
+                        content +=`
                         <tr>
-                            <td>${response.dataset.estrellas}</td>
-                            <td>${response.dataset.comentario}</td>
+                            <td>${row.estrellas}</td>
+                            <td>${row.comentario}</td>
                             <td>
-                                <a class="btn waves-effect blue tooltipped" data-tooltip="Ver Comentarios"><i class="material-icons">delete</i></a>
+                                <a onclick="openDeleteDialog(${row.id_valoracion})" class="btn waves-effect red tooltipped" data-tooltip="Eliminar comentario"><i class="material-icons">delete</i></a>
                             </td>
                         </tr>
-                    `;
+                        `;
+                    });
                     // Se agregan las filas al cuerpo de la tabla mediante su id para mostrar los registros.
                     document.getElementById('tbody-rows').innerHTML = content;
                     // Se inicializa el componente Tooltip asignado a los enlaces para que funcionen las sugerencias textuales.
@@ -48,3 +54,12 @@ function readOneProducto(id) {
     });
 }
 
+// Función para establecer el registro a eliminar y abrir una caja de dialogo de confirmación.
+function openDeleteDialog(id) {
+    // Se define un objeto con los datos del registro seleccionado.
+    const data = new FormData();
+    data.append('id_valoracion', id);
+    // Se llama a la función que elimina un registro. Se encuentra en el archivo components.js
+    confirmDelete(API_COMENTARIO, data);
+    readOneProducto(ID);
+}

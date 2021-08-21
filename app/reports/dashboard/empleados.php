@@ -5,7 +5,7 @@ require('../../models/usuarios.php');
 // Se instancia la clase para crear el reporte.
 $pdf = new Report;
 // Se inicia el reporte con el encabezado del documento.
-$pdf->startReport('Productos por categoría');
+$pdf->startReport('Empleados por tipo de Usuario');
 
 // Se instancia el módelo Categorías para obtener los datos.
 $categoria = new Usuarios;

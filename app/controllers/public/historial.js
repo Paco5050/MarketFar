@@ -1,5 +1,5 @@
 // Constante para establecer la ruta y parámetros de comunicación con la API.
-const API_PEDIDOS = '../../app/api/dashboard/ordenes.php?action=';
+const API_PEDIDOS = '../../app/api/public/pedidos.php?action=';
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Función para obtener el detalle del pedido (carrito de compras).
 function readOrderDetail() {
-    fetch(API_PEDIDOS + 'readAll', {
+    fetch(API_PEDIDOS + 'readAll2', {
         method: 'get'
     }).then(function (request) {
         // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
@@ -27,8 +27,8 @@ function readOrderDetail() {
                                 <td>${row.nombres_cliente}</td>
                                 <td>${row.fecha_pedido}</td>
                                 <td>
-                                <a href="../../app/reports/dashboard/ordenes.php?id=${row.id_pedido}" target="_blank" class="btn waves-effect amber tooltipped" data-tooltip="Reporte de productos"><i class="material-icons">assignment</i></a>
-                                <a href="#" onclick="finishOrder(${row.id_pedido})" class="btn waves-effect green tooltipped" data-tooltip="Terminar orden"><i class="material-icons">done_all</i></a>
+                                
+                                <a href="../../app/reports/public/carrito.php?id=${row.id_pedido}" target="_blank" class="btn waves-effect amber tooltipped" data-tooltip="Reporte de productos"><i class="material-icons">assignment</i></a>
                                 </td>
                             </tr>
                         `;

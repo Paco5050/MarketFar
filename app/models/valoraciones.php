@@ -82,11 +82,11 @@ class Valoracion extends Validator
     // Método para finalizar un pedido por parte del cliente.
     public function read()
     {
-        $sql = 'SELECT id_valoracion, estrellas, comentario, id_producto
+        $sql = 'SELECT id_valoracion, estrellas, comentario
         FROM valoraciones 
         WHERE id_producto = ?';
         $params = array($this->id);
-        return Database::getRow($sql, $params);
+        return Database::getRows($sql, $params);
     }
     
     public function cantidadValoraciones()
@@ -96,5 +96,13 @@ class Valoracion extends Validator
         GROUP BY nombre_producto ORDER BY estrellas DESC LIMIT 5';
         $params = null;
         return Database::getRows($sql, $params);
+    }
+
+    public function deleteRow()
+    {
+        $sql = 'DELETE FROM valoraciones
+                WHERE id_valoracion = ?';
+        $params = array($this->id);
+        return Database::executeRow($sql, $params);
     }
 }
