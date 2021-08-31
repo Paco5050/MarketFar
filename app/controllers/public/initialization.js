@@ -9,12 +9,12 @@ document.addEventListener('DOMContentLoaded', function () {
     let images = ['img01.jpg', 'img02.jpg', 'img03.jpg', 'img04.jpg', 'img05.jpg'];
     // Se declara e inicializa una variable para obtener un elemento del arreglo de forma aleatoria.
     let element = Math.floor(Math.random() * images.length);
+    // Se inicializa el componente Sidenav para que funcione el menú lateral.
+    M.Sidenav.init(document.querySelectorAll('.sidenav'));
     // Se asigna la imagen a la etiqueta img por medio del atributo src.
     document.getElementById('parallax').setAttribute('src', '../../resources/img/parallax/' + images[element]);
     // Se inicializa el efecto Parallax.
     M.Parallax.init(document.querySelectorAll('.parallax'));
-    // Se inicializa el componente Sidenav para que funcione el menú lateral.
-    M.Sidenav.init(document.querySelectorAll('.sidenav'));
     // Se inicializa el componente Modal para que funcionen las cajas de dialogo.
     M.Modal.init(document.querySelectorAll('.modal'));
     // Se inicializa el componente Tooltip asignado a botones y enlaces para que funcionen las sugerencias textuales.

@@ -91,7 +91,7 @@ class Valoracion extends Validator
     
     public function cantidadValoraciones()
     {
-        $sql = 'SELECT nombre_producto, ROUND(AVG(estrellas),0) estrellas
+        $sql = 'SELECT nombre_producto, ROUND(AVG(estrellas), 1) estrellas
         FROM valoraciones INNER JOIN productos USING(id_producto)
         GROUP BY nombre_producto ORDER BY estrellas DESC LIMIT 5';
         $params = null;
