@@ -73,7 +73,7 @@ Public_Page::headerTemplate('Registrarse');
 </div>
 
 <!-- Importación del archivo para que funcione el reCAPTCHA. Para más información https://developers.google.com/recaptcha/docs/v3 -->
-<script type="text/javascript" src="https://www.google.com/recaptcha/api.js?render=6LdBzLQUAAAAAJvH-aCUUJgliLOjLcmrHN06RFXT"></script>
+<script type="text/javascript" src="https://www.google.com/recaptcha/api.js?render=6LcS3WQcAAAAANfLox1N9eTgeRbJGCw5y1NHRe4s"></script>
 
 <?php
 // Se imprime la plantilla del pie enviando el nombre del controlador para la página web.

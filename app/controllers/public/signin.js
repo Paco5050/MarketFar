@@ -24,7 +24,7 @@ function reCAPTCHA() {
     // Método para generar el token del reCAPTCHA.
     grecaptcha.ready(function () {
         // Se declara e inicializa una variable para guardar la llave pública del reCAPTCHA.
-        let publicKey = '6LdBzLQUAAAAAJvH-aCUUJgliLOjLcmrHN06RFXT';
+        let publicKey = '6LcS3WQcAAAAANfLox1N9eTgeRbJGCw5y1NHRe4s';
         // Se obtiene un token para la página web mediante la llave pública.
         grecaptcha.execute(publicKey, { action: 'homepage' }).then(function (token) {
             // Se asigna el valor del token al campo oculto del formulario

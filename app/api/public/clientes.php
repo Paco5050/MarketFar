@@ -16,12 +16,10 @@ if (isset($_GET['action'])) {
         // Se compara la acción a realizar cuando un cliente ha iniciado sesión.
         switch ($_GET['action']) {
             case 'logOut':
-                if (session_destroy()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Sesión eliminada correctamente';
-                } else {
-                    $result['exception'] = 'Ocurrió un problema al cerrar la sesión';
-                }
+                //
+                unset($_SESSION['id_cliente']);
+                $result['status'] = 1;
+                $result['message'] = 'Sesión eliminada correctamente';
                 break;
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
@@ -34,7 +32,7 @@ if (isset($_GET['action'])) {
                 // Se sanea el valor del token para evitar datos maliciosos.
                 $token = filter_input(INPUT_POST, 'g-recaptcha-response', FILTER_SANITIZE_STRING);
                 if ($token) {
-                    $secretKey = '6LdBzLQUAAAAAL6oP4xpgMao-SmEkmRCpoLBLri-';
+                    $secretKey = '6LcS3WQcAAAAAGmbtnRf43sRjVBM0q-DBTkckiGx';
                     $ip = $_SERVER['REMOTE_ADDR'];
 
                     $data = array(

@@ -16,12 +16,9 @@ if (isset($_GET['action'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
             case 'logOut':
-                if (session_destroy()) {
-                    $result['status'] = 1;
-                    $result['message'] = 'Sesión eliminada correctamente';
-                } else {
-                    $result['exception'] = 'Ocurrió un problema al cerrar la sesión';
-                }
+                unset($_SESSION['id_usuario']);
+                $result['status'] = 1;
+                $result['message'] = 'Sesión eliminada correctamente';
                 break;
             case 'readProfile':
                 if ($result['dataset'] = $usuario->readProfile()) {
@@ -236,35 +233,47 @@ if (isset($_GET['action'])) {
                 break;
             case 'register':
                 $_POST = $usuario->validateForm($_POST);
-                if ($usuario->setNombres($_POST['nombres'])) {
-                    if ($usuario->setApellidos($_POST['apellidos'])) {
-                        if ($usuario->setCorreo($_POST['correo'])) {
-                            if ($usuario->setAlias($_POST['alias'])) {
-                                if ($_POST['clave1'] == $_POST['clave2']) {
-                                    if ($usuario->setClave($_POST['clave1'])) {
-                                        if ($usuario->createRow2()) {
-                                            $result['status'] = 1;
-                                            $result['message'] = 'Usuario registrado correctamente';
+                if (!$usuario->readAll()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'No existe un usuario';
+                    if ($usuario->setNombres($_POST['nombres'])) {
+                        if ($usuario->setApellidos($_POST['apellidos'])) {
+                            if ($usuario->setCorreo($_POST['correo'])) {
+                                if ($usuario->setAlias($_POST['alias'])) {
+                                    if ($_POST['clave1'] == $_POST['clave2']) {
+                                        if ($usuario->setClave($_POST['clave1'])) {
+                                            if ($usuario->createRow2()) {
+                                                $result['status'] = 1;
+                                                $result['message'] = 'Usuario registrado correctamente';
+                                            } else {
+                                                $result['exception'] = Database::getException();
+                                            }
                                         } else {
-                                            $result['exception'] = Database::getException();
+                                            $result['exception'] = $usuario->getPasswordError();
                                         }
                                     } else {
-                                        $result['exception'] = $usuario->getPasswordError();
+                                        $result['exception'] = 'Claves diferentes';
                                     }
                                 } else {
-                                    $result['exception'] = 'Claves diferentes';
+                                    $result['exception'] = 'Alias incorrecto';
                                 }
                             } else {
-                                $result['exception'] = 'Alias incorrecto';
+                                $result['exception'] = 'Correo incorrecto';
                             }
                         } else {
-                            $result['exception'] = 'Correo incorrecto';
+                            $result['exception'] = 'Apellidos incorrectos';
                         }
                     } else {
-                        $result['exception'] = 'Apellidos incorrectos';
+                        $result['exception'] = 'Nombres incorrectos';
                     }
-                } else {
-                    $result['exception'] = 'Nombres incorrectos';
+                }
+                else {
+                    if (Database::getException()) {
+                        $result['error'] = 1;
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'Ya existen usuario registrados';
+                    }
                 }
                 break;
             case 'logIn':
