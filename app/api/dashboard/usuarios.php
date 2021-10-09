@@ -2,6 +2,7 @@
 require_once('../../helpers/database.php');
 require_once('../../helpers/validator.php');
 require_once('../../models/usuarios.php');
+require_once('../../models/historial.php');
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
@@ -9,6 +10,7 @@ if (isset($_GET['action'])) {
     session_start();
     // Se instancia la clase correspondiente.
     $usuario = new Usuarios;
+    $historial = new Historial;
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'error' => 0, 'message' => null, 'exception' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
@@ -284,6 +286,17 @@ if (isset($_GET['action'])) {
                         $result['message'] = 'Autenticación correcta';
                         $_SESSION['id_usuario'] = $usuario->getId();
                         $_SESSION['alias_usuario'] = $usuario->getAlias();
+
+                        if ($historial->setAlias($_POST['alias'])) {
+                            if ($historial->createRowHistorial()) {
+                                $result['status'] = 1;
+                                $result['message'] = 'Historial ingresado';
+                            } else {
+                                $result['exception'] = 'Historial error';
+                            }
+                        } else {
+                            $result['exception'] = 'Correo incorrecto';
+                        }
                     } else {
                         if (Database::getException()) {
                             $result['exception'] = Database::getException();

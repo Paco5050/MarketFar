@@ -8,15 +8,15 @@ Dashboard_Page::headerTemplate('Iniciar sesión');
 <div class="container">
     <div class="row">
         <!-- Formulario para iniciar sesión -->
-        <form method="post" id="session-form">
+        <form method="post" autocomplete="off" id="session-form">
             <div class="input-field col s12 m6 offset-m3">
                 <i class="material-icons prefix">person_pin</i>
-                <input id="alias" type="text" name="alias" class="validate" required/>
+                <input autocomplete="off" id="alias" type="text" name="alias" class="validate" required/>
                 <label for="alias">Alias</label>
             </div>
             <div class="input-field col s12 m6 offset-m3">
                 <i class="material-icons prefix">security</i>
-                <input id="clave" type="password" name="clave" class="validate" required/>
+                <input autocomplete="off" id="clave" type="password" name="clave" class="validate" required/>
                 <label for="clave">Clave</label>
             </div>
             <div class="col s12 center-align">

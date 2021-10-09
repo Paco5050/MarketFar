@@ -53,6 +53,7 @@ class Dashboard_Page
                                         <li><a href="valoraciones.php"><i class="material-icons left">star_rate</i>Valoraciones</a></li>
                                         <li><a href="clientes.php"><i class="material-icons left">contacts</i>Clientes</a></li>
                                         <li><a href="usuarios.php"><i class="material-icons left">group</i>Usuarios</a></li>
+                                        <li><a href="historial.php"><i class="material-icons left">history</i>Historial</a></li>
                                         <li><a href="#" class="dropdown-trigger" data-target="dropdown"><i class="material-icons left">verified_user</i>Cuenta: <b>' . $_SESSION['alias_usuario'] . '</b></a></li>
                                     </ul>
                                     <ul id="dropdown" class="dropdown-content">

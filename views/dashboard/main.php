@@ -3,6 +3,7 @@
 require_once('../../app/helpers/dashboard_page.php');
 // Se imprime la plantilla del encabezado enviando el título de la página web.
 Dashboard_Page::headerTemplate('Bienvenido');
+
 ?>
 
 <!-- Se muestra un saludo de acuerdo con la hora del cliente -->

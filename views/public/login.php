@@ -3,6 +3,9 @@
 require_once('../../app/helpers/public_page.php');
 // Se imprime la plantilla del encabezado enviando el título de la página web.
 Public_Page::headerTemplate('Iniciar sesión');
+if((time() - $_SESSION['time']) > 10){
+    header('location: logout_page.php');
+}
 ?>
 
 <!-- Contenedor para mostrar el formulario de inicio de sesión -->
@@ -10,16 +13,16 @@ Public_Page::headerTemplate('Iniciar sesión');
     <!-- Título del contenido principal -->
     <h4 class="center-align indigo-text">Iniciar sesión</h4>
     <!-- Formulario para iniciar sesión -->
-    <form method="post" id="session-form">
+    <form method="post" autocomplete="off" id="session-form">
         <div class="row">
             <div class="input-field col s12 m4 offset-m4">
                 <i class="material-icons prefix">email</i>
-                <input type="email" id="usuario" name="usuario" class="validate" required/>
+                <input type="email" id="usuario" name="usuario" class="validate" autocomplete="off" required/>
                 <label for="usuario">Correo electrónico</label>
             </div>
             <div class="input-field col s12 m4 offset-m4">
                 <i class="material-icons prefix">security</i>
-                <input type="password" id="clave" name="clave" class="validate" required/>
+                <input type="password" id="clave" name="clave" class="validate" autocomplete="off" required/>
                 <label for="clave">Clave</label>
             </div>
         </div>
